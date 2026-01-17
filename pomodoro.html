@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Focus Mode | TaskArchitect</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .timer-container { display: flex; flex-direction: column; align-items: center; margin-top: 50px; }
+        
+        .clock-ring {
+            width: 300px; height: 300px; border-radius: 50%;
+            border: 10px solid #1f232d; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            background: radial-gradient(circle, #11141d 0%, #05070a 100%);
+            transition: 0.5s;
+        }
+
+        .clock-ring.active { border-color: var(--accent-violet); box-shadow: 0 0 40px rgba(138, 112, 255, 0.2); }
+
+        #timer-display { font-size: 5rem; font-weight: 700; margin: 0; }
+
+        .btn-toggle {
+            background: var(--accent-violet); color: white; border: none;
+            padding: 15px 60px; font-size: 1.3rem; border-radius: 12px;
+            cursor: pointer; font-weight: 700; margin-top: 40px; transition: 0.3s;
+        }
+
+        .btn-toggle.pause-state { background: #ff5f5f; } /* Red for Pause */
+    </style>
+</head>
+<body>
+    <aside>
+        <div class="logo">TaskArchitect</div>
+        <nav>
+            <a href="index.html">Dashboard</a>
+            <a href="college.html">Syllabus Tracker</a>
+            <a href="pomodoro.html" class="active">Focus Mode</a>
+        </nav>
+    </aside>
+
+    <main>
+        <h2>Focus Mode</h2>
+        <div class="timer-container">
+            <div class="clock-ring" id="ring">
+                <div style="color:var(--accent-soft); letter-spacing:2px; font-size:0.8rem;">DEEP WORK</div>
+                <h1 id="timer-display">25:00</h1>
+            </div>
+            <button class="btn-toggle" id="toggle-btn" onclick="toggleTimer()">START</button>
+        </div>
+    </main>
+
+    <script>
+        let timeLeft = 25 * 60;
+        let timerId = null;
+
+        function toggleTimer() {
+            const btn = document.getElementById('toggle-btn');
+            const ring = document.getElementById('ring');
+
+            if (timerId) {
+                // Pause Logic
+                clearInterval(timerId);
+                timerId = null;
+                btn.innerText = 'START';
+                btn.classList.remove('pause-state');
+                ring.classList.remove('active');
+            } else {
+                // Start Logic
+                btn.innerText = 'PAUSE';
+                btn.classList.add('pause-state');
+                ring.classList.add('active');
+                
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    updateDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timerId);
+                        alert("Session Finished!");
+                    }
+                }, 1000);
+            }
+        }
+
+        function updateDisplay() {
+            const m = Math.floor(timeLeft / 60);
+            const s = timeLeft % 60;
+            document.getElementById('timer-display').innerText = 
+                `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>

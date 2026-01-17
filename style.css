@@ -1,0 +1,48 @@
+:root {
+    --bg-deep: #05070a;
+    --sidebar-bg: #0a0d14;
+    --card-bg: #11141d;
+    --accent-violet: #8a70ff;
+    --accent-soft: #a594fd;
+    --text-white: #ffffff;
+    --text-dim: #9499a3;
+    --border-color: #1f232d;
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-white);
+    font-family: 'Inter', sans-serif;
+    margin: 0; display: flex; height: 100vh; overflow: hidden;
+}
+
+aside {
+    width: 260px; background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 30px 20px; display: flex; flex-direction: column;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem;
+    color: var(--accent-violet); margin-bottom: 40px;
+}
+
+nav a {
+    color: var(--text-dim); text-decoration: none;
+    padding: 12px 15px; margin-bottom: 8px; border-radius: 10px;
+    display: flex; align-items: center; transition: 0.3s;
+}
+
+nav a.active { background: #1a1e2b; color: var(--accent-violet); font-weight: 600; }
+
+main { flex: 1; padding: 40px; overflow-y: auto; }
+
+.card {
+    background: var(--card-bg); border: 1px solid var(--border-color);
+    border-radius: 18px; padding: 25px; margin-bottom: 25px;
+}
+
+.btn-action {
+    background: var(--accent-violet); color: white; border: none;
+    padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;
+}
